@@ -7,23 +7,24 @@ from nn_core import CustomNeuralNetwork
 import nn_core
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Neural Networks Explorer", layout="wide", page_icon="🧠")
+st.set_page_config(page_title="Neural Networks Explorer", layout="wide")
 
 st.markdown("""
 <style>
-.stApp { background-color: #0E1117; color: white; }
-.metric-box { background: rgba(43, 48, 62, 0.6); padding: 10px; border-radius: 8px; text-align: center; border: 1px solid #2A2A2A; margin: 10px 0; }
-.metric-title { font-size: 0.9rem; color: #A0AEC0; }
-.metric-value { font-size: 1.5rem; font-weight: bold; color: #4CAF50; }
-.explanation-box { background: rgba(33, 150, 243, 0.1); padding: 15px; border-left: 4px solid #2196F3; border-radius: 4px; margin-bottom: 20px;}
+.stApp { background-color: #121212; color: #E0E0E0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.metric-box { background: #1E1E1E; padding: 12px; border-radius: 6px; text-align: center; border: 1px solid #333333; margin: 10px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.metric-title { font-size: 0.85rem; color: #9E9E9E; text-transform: uppercase; letter-spacing: 0.5px; }
+.metric-value { font-size: 1.6rem; font-weight: 600; color: #64B5F6; }
+.explanation-box { background: #1E2329; padding: 15px; border-left: 3px solid #64B5F6; border-radius: 4px; margin-bottom: 20px; color: #D7DCE1; font-size: 0.95rem; }
+hr { border-color: #333333; }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🧠 Neural Networks Explorer")
+st.title("Neural Networks Explorer")
 st.markdown("### Learn How Neural Networks Compute, Predict, and Learn")
 
 # SIDEBAR
-st.sidebar.header("🕹️ Global Controls")
+st.sidebar.header("Global Controls")
 dataset_name = st.sidebar.selectbox("1. Dataset Selection", ["Nonlinear (Moons)", "Noisy Circles", "Linear (Separable)"])
 add_noise = st.sidebar.checkbox("Add Extra Noise", value=False)
 noise_level = st.sidebar.slider("Noise Intensity", 0.0, 0.5, 0.15) if add_noise else 0.05
@@ -46,7 +47,7 @@ if 'epoch_count' not in st.session_state: st.session_state.epoch_count = 0
 
 layer_dims = [2] + [n_neurons]*n_layers + [1]
 
-if st.sidebar.button("♻️ Initialize / Reset Model", use_container_width=True):
+if st.sidebar.button("Initialize / Reset Model", use_container_width=True):
     st.session_state.model = CustomNeuralNetwork(layer_dims, activation=activation)
     st.session_state.losses = []
     st.session_state.epoch_count = 0
@@ -63,8 +64,8 @@ if st.session_state.model is None or st.session_state.model.activation != activa
     st.session_state.epoch_count = 0
 
 t1, t2, t3, t4, t5, t6, t7 = st.tabs([
-    "1️⃣ Neuron Computation", "2️⃣ Activation", "3️⃣ Architecture", 
-    "4️⃣ Forward Prop", "5️⃣ Loss", "6️⃣ Backprop", "7️⃣ Model Complexity"
+    "Neuron Computation", "Activation", "Architecture", 
+    "Forward Prop", "Loss", "Backprop", "Model Complexity"
 ])
 
 with t1:
@@ -130,7 +131,7 @@ with t5:
     
     colA, colB = st.columns([1, 2])
     with colA:
-         if st.button("🚂 Train 10 Epochs"):
+         if st.button("Train 10 Epochs"):
              for _ in range(10):
                  preds = st.session_state.model.forward_pass(X_train_nn)
                  loss = st.session_state.model.compute_loss(preds, y_train_nn, loss_fn)
@@ -152,7 +153,7 @@ with t5:
 
 with t6:
     st.markdown('<div class="explanation-box"><b>Intuition:</b> Backpropagation looks at the loss error and uses calculus (derivatives) to figure out how much each weight contributed to the error. It computes a "Gradient" (slope), and Gradient Descent steps downhill to update parameters.</div>', unsafe_allow_html=True)
-    if st.button("🔄 Compute Gradients (One Forward-Backward Step)"):
+    if st.button("Compute Gradients (One Forward-Backward Step)"):
         preds = st.session_state.model.forward_pass(X_train_nn)
         loss = st.session_state.model.compute_loss(preds, y_train_nn, loss_fn)
         grads = st.session_state.model.backward_pass(y_train_nn, preds, loss_fn)
@@ -180,7 +181,7 @@ with t6:
 with t7:
     st.markdown('<div class="explanation-box"><b>Intuition:</b> Larger models (deep/wide) can learn complex decision boundaries. However, if they are too large, they memorize the noise (Overfitting). If they are too small, they cannot learn the pattern (Underfitting).</div>', unsafe_allow_html=True)
     
-    if st.button("🚀 Run Full Training Cycle", type="primary"):
+    if st.button("Run Full Training Cycle", type="primary"):
         my_bar = st.progress(0)
         for e in range(epochs):
             preds = st.session_state.model.forward_pass(X_train_nn)

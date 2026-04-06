@@ -8,22 +8,22 @@ def plot_activation_functions():
     fig, ax = plt.subplots(1, 3, figsize=(15, 3.5))
     
     # Theme settings
-    fig.patch.set_facecolor('#0E1117')
+    fig.patch.set_facecolor('#121212')
     for a in ax:
-        a.set_facecolor('#0E1117')
-        a.tick_params(colors='white')
-        a.spines['bottom'].set_color('white')
-        a.spines['left'].set_color('white')
-        a.grid(color='#2A2A2A')
+        a.set_facecolor('#121212')
+        a.tick_params(colors='#E0E0E0')
+        a.spines['bottom'].set_color('#E0E0E0')
+        a.spines['left'].set_color('#E0E0E0')
+        a.grid(color='#333333')
     
     ax[0].plot(x, np.maximum(0, x), color='#4CAF50', lw=2)
-    ax[0].set_title("ReLU", color='white')
+    ax[0].set_title("ReLU", color='#E0E0E0')
     
     ax[1].plot(x, 1/(1+np.exp(-x)), color='#2196F3', lw=2)
-    ax[1].set_title("Sigmoid", color='white')
+    ax[1].set_title("Sigmoid", color='#E0E0E0')
     
     ax[2].plot(x, np.tanh(x), color='#FF9800', lw=2)
-    ax[2].set_title("Tanh", color='white')
+    ax[2].set_title("Tanh", color='#E0E0E0')
     
     return fig
 
@@ -39,30 +39,30 @@ def plot_decision_boundary(model, X, y, title="Decision Boundary"):
     Z = Z.reshape(xx.shape)
     
     fig, ax = plt.subplots(figsize=(8, 5))
-    fig.patch.set_facecolor('#0E1117')
-    ax.set_facecolor('#0E1117')
-    ax.tick_params(colors='white')
+    fig.patch.set_facecolor('#121212')
+    ax.set_facecolor('#121212')
+    ax.tick_params(colors='#E0E0E0')
     
     cm = plt.cm.RdBu
     cm_bright = ListedColormap(['#FF4B4B', '#2196F3'])
     
     ax.contourf(xx, yy, Z, cmap=cm, alpha=0.6)
-    ax.scatter(X[0, :], X[1, :], c=y, cmap=cm_bright, edgecolors='white', s=40)
-    ax.set_title(title, color='white')
+    ax.scatter(X[0, :], X[1, :], c=y, cmap=cm_bright, edgecolors='#121212', s=40)
+    ax.set_title(title, color='#E0E0E0')
     return fig
 
 def plot_loss_curve(losses):
     fig, ax = plt.subplots(figsize=(8, 4))
-    fig.patch.set_facecolor('#0E1117')
-    ax.set_facecolor('#0E1117')
-    ax.tick_params(colors='white')
-    ax.grid(color='#2A2A2A')
+    fig.patch.set_facecolor('#121212')
+    ax.set_facecolor('#121212')
+    ax.tick_params(colors='#E0E0E0')
+    ax.grid(color='#333333')
     
     ax.plot(losses, label="Training Error", color="#FF4B4B", lw=3)
-    ax.set_title("Loss Reduction Over Time", color='white')
-    ax.set_xlabel("Epoch", color='white')
-    ax.set_ylabel("Loss Measurement", color='white')
-    ax.legend(facecolor='#0E1117', labelcolor='white')
+    ax.set_title("Loss Reduction Over Time", color='#E0E0E0')
+    ax.set_xlabel("Epoch", color='#E0E0E0')
+    ax.set_ylabel("Loss Measurement", color='#E0E0E0')
+    ax.legend(facecolor='#121212', labelcolor='#E0E0E0')
     
     return fig
 
@@ -90,8 +90,8 @@ def draw_3b1b_network_html(layer_sizes, weights=None, activations=None):
     <html>
     <head>
         <style>
-            body {{ background-color: #0E1117; margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; }}
-            canvas {{ background-color: #0E1117; width: 100%; height: 400px; }}
+            body {{ background-color: #121212; margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; }}
+            canvas {{ background-color: #121212; width: 100%; height: 400px; }}
         </style>
     </head>
     <body onresize="resizeCanvas()">
@@ -201,7 +201,7 @@ def draw_3b1b_network_html(layer_sizes, weights=None, activations=None):
                     ctx.fill();
                     
                     ctx.lineWidth = 2;
-                    ctx.strokeStyle = 'white';
+                    ctx.strokeStyle = '#E0E0E0';
                     ctx.stroke();
                 }});
                 
